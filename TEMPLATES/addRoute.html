@@ -1,0 +1,50 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/addRoute" method="POST"> 
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+        <div class="section">
+            <div class="flex-center-vertical">
+                <h1>Add Route</h1>
+            </div>
+        </div>
+            
+            <div class="section">
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="route_name" type="text" value="">
+                            <label for="input-type-name">Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="subnet_ip" type="text" value="">
+                            <label for="input-type-name">Subnet</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="hop_ip" type="text" value="">
+                            <label for="input-type-name">Next Hop </label>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <button name="add_route" class="btn additional_submit" value="True">Save Changes</button>
+            <button name="cancel_add_route" class="btn btn--ghost additional_submit" value="True">Cancel</button>
+    </div>
+    
+</form>
+{%  endblock %}
+

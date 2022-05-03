@@ -1,0 +1,87 @@
+<!-- Template Helper: sidebar, which can used in different pages-->
+
+<nav class="col-3 col-xl-3 col-md-3 sidebar dbl-margin-top" role="navigation">
+    <ul id="rootSidebar">
+
+        <!--PASS INFO: dropdown_content = json string that includes all organization and networks of a user (format: see dropdown_content variable in app.py - columnpage())-->
+        <!--Orga fields-->
+        <div class="form-group base-margin-bottom">
+            <div class="form-group__text select">
+                <select name="organizations_select" id='organizations_select' required>
+                    <option disabled selected hidden value="0">Please choose...</option>
+                    {% for orga in dropdown_content %}<option value="{{orga.id}}" {% if selected_elements.organization == orga.id %} selected {% endif %}>{{orga.name}} (ID:{{orga.id}})</option>{% endfor %}
+                </select>
+                <label for="organizations_select">Organization*</label>
+            </div>
+        </div>
+
+        <!--Network fields-->
+        {% for orga in dropdown_content %}
+            <div id="{{orga.id}}" class="network-select" {% if selected_elements.organization != orga.id %} hidden {% endif %}>
+                <div class="form-group base-margin-bottom">
+                    <div class="form-group__text select">
+                        <select name="network_select" class='networks network_select'>
+                            <option disabled selected hidden value="0">Please choose...</option>
+                            {% for network in orga['networks'] %}
+                                <option value="{{network['id']}}" {% if selected_elements.network_id == network['id'] %} selected {% endif %}>{{network['name']}} (ID:{{network['id']}})</option>                                                      
+                            {% endfor %}
+                        </select>
+                        <label for="network">Network*</label>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        
+        {% if permissions.permissions.network_policies or permissions.permissions.network_traffic_analysis or permissions.permissions.network_clients or permissions.permissions.network_add_device%}
+            <li class="sidebar__drawer">
+                <a tabindex="2" title="Template Pages">
+                    <span>Network-wide</span>
+                </a>
+                <ul>
+                    {% if permissions.permissions.network_policies %}<li class="sidebar__item"><a href="/groupPolicies">Group Policies</a></li>{% endif %}
+                    {% if permissions.permissions.network_traffic_analysis %}<li class="sidebar__item"><a title="Not clickable" class="unclickable">Traffic Analytics</a></li>{% endif %}
+                    {% if permissions.permissions.network_clients %}<li class="sidebar__item"><a href="/clients">Clients</a></li>{% endif %}
+                    {% if permissions.permissions.network_add_device  %}<li class="sidebar__item"><a href="/devices">Devices</a></li>{% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if permissions.permissions.switch_routing_DHCP or permissions.permissions.switch_port_config or permissions.permissions.switch_ipv4_acl%}
+            <li class="sidebar__drawer">
+                <a tabindex="3" title="Template Pages">
+                    <span>Switch</span>
+                </a>
+                <ul>
+                    {% if permissions.permissions.switch_routing_DHCP %}<li class="sidebar__item"><a title="Not clickable" class="unclickable">Routing & DHCP</a></li>{% endif %}
+                    {% if permissions.permissions.switch_port_config %}<li class="sidebar__item"><a href="/switchPort">Switch Ports</a></li>{% endif %}
+                    {% if permissions.permissions.switch_ipv4_acl %}<li class="sidebar__item"><a title="Not clickable" class="unclickable">ACL</a></li>{% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if permissions.permissions.security_vlan or permissions.permissions.security_firewall_rules or permissions.permissions.security_site_to_site_vpn %}
+            <li class="sidebar__drawer">
+                <a tabindex="4" title="Template Pages">
+                    <span>Security & SD-WAN</span>
+                </a>
+                <ul>
+                    {% if permissions.permissions.security_vlan %}<li class="sidebar__item"><a href="/addressingAndVlan">Addressing & VLAN</a></li>{% endif %}
+                    {% if permissions.permissions.security_firewall_rules %}<li class="sidebar__item"><a title="Not clickable" class="unclickable">Firewall Rules</a></li>{% endif %}
+                    {% if permissions.permissions.security_site_to_site_vpn %}<li class="sidebar__item"><a title="Not clickable" class="unclickable">Site-to-Site VPN</a></li>{% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if permissions.permissions.wireless_ap or permissions.permissions.wireless_ssid or permissions.permissions.wireless_access_control %}
+            <li class="sidebar__drawer">
+                <a tabindex="5" title="Charts Pages">
+                    <span>Wireless</span>
+                </a>
+                <ul>
+                    {% if permissions.permissions.wireless_ap %}<li class="sidebar__item"><a href="/accessPoints">Access Points</a></li>{% endif %}
+                    {% if permissions.permissions.wireless_ssid %}<li class="sidebar__item"><a title="Not clickable" class="unclickable">SSID</a></li>{% endif %}
+                    {% if permissions.permissions.wireless_access_control %}<li class="sidebar__item"><a title="Not clickable" class="unclickable">Access Control</a></li>{% endif %}
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+    <input id="additional_submit" class="btn btn-primary hidden hidden_submit" type="submit" value="Change network">
+
+</nav>

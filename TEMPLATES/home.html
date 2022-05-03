@@ -1,0 +1,18 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/home" method="POST"> 
+
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9" style="margin-top: 20px;">
+        Please choose an organization, network and menu element.
+    </div>
+    
+</form>
+{%  endblock %}
+

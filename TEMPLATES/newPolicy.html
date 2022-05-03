@@ -1,0 +1,140 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/newPolicy" method="POST"> 
+
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+        <div class="section">
+            <div class="flex-center-vertical">
+                <h1>Add Policy</h1>
+            </div>
+        </div>            
+            <div class="section">
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="policy_name" type="text" value="New group">
+                            <label for="input-type-name">Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 0px;">
+                    <div class="col-md-3">
+                        <div class="form-group base-margin-bottom">
+                            <div class="form-group__text select">
+                                <select name="bandwidth" id="select-type-basic">
+                                    <option value="network default" selected="">Use network default</option>
+                                    <option value="ignore">Ignore Bandwidth</option>
+                                    <option value="custom">Use custom bandwidth limit</option>
+                                </select>
+                                <label for="select-type-basic">Bandwidth</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group base-margin-bottom">
+                            <div class="form-group__text">
+                                <input name="bw_limit_down" type="text" value="100">
+                                <label for="bw_limit_down">Limit down</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group base-margin-bottom">
+                            <div class="form-group__text">
+                                <input name="bw_limit_up" type="text" value="1500">
+                                <label for="bw_limit_up">Limit up</label>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+            <div class="section">
+                <h3 class="display-5">Wireless only</h3>
+                <div class="row" style="margin-left: 0px;">
+                    <div class="col-md-3">
+                        <div class="form-group base-margin-bottom">
+                            <div class="form-group__text select">
+                                <select name="vlan" id="select-type-basic">
+                                    <option value="network default" selected>Use network default</option>
+                                    <option value="ignore">Do not tag VLAN</option>
+                                    <option value="custom">Tag VLAN</option>
+                                </select>
+                                <label for="select-type-basic">VLAN</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group base-margin-bottom">
+                            <div class="form-group__text">
+                                <input name="vlan_number" type="text" value="1">
+                                <label for="vlan_number">VLAN number</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="splash" id="select-type-basic">
+                                <option value="network default" selected>Use network default</option>
+                                <option value="bypass">Bypass</option>
+                            </select>
+                            <label for="select-type-basic">Splash</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h3 class="display-5">Security appliance only</h3>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="amp" id="select-type-basic">
+                                <option value="network default" selected>Use network default</option>
+                                <option value="false">Disable</option>
+                                <option value="true">Enable</option>
+                            </select>
+                            <label for="select-type-basic">AMP</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="youtube" id="select-type-basic">
+                                <option value="first" selected>Use network default</option>
+                                <option value="false">Disable</option>
+                                <option value="true">Enable</option>
+                            </select>
+                            <label for="select-type-basic">Restricted YouTube content</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="websearch" id="select-type-basic">
+                                <option value="first" selected>Use network default</option>
+                                <option value="false">Disable</option>
+                                <option value="true">Enable</option>
+                            </select>
+                            <label for="select-type-basic">Web search filtering</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button name="new_policy" class="btn additional_submit" value="True">Save Changes</button>
+            <button name="cancel_new_policy" class="btn btn--ghost additional_submit" value="True">Cancel</button>
+    </div>
+    
+</form>
+{%  endblock %}
+

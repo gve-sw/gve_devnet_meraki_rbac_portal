@@ -1,0 +1,82 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/devices" method="POST"> 
+
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+    <div class="section">
+        <div class="flex-center-vertical">
+            <h1>Devices</h1>
+        </div>
+        <!--<div class="">
+            <div style="float: right;">
+                <button class="btn btn--ghost" onclick="openModal('modal-small'); return false;">Claim</button>                    
+            </div>
+        </div>-->
+    </div>
+    <div class="section">
+        <div class="responsive-table">
+            <table class="table table--lined table--selectable table">
+                <thead>
+                    <tr>
+                        <th class="sortable">MAC address <span class="sort-indicator icon-dropdown"></span></th>
+                        <th>Serial number</th>
+                        <th class="text-center hidden-xs-down">Model</th>
+                        <th class="text-center hidden-md-down">Claimed on</th>
+                    </tr>
+                </thead>
+                
+                {% if selected_elements.network_id %}
+                    {% if orgaDevices %}
+                    <tbody>
+                        {% for device in orgaDevices %}
+                        <tr>
+                            <td>{{device.mac}}</td>
+                            <td>{{device.serial}}</td>
+                            <td class="text-center">{{device.model}}</td>
+                            <td class="text-center hidden-md-down"><span class="icon-check text-success"></span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tr><td colspan="5">This organization has no devices.</td></tr>
+                    {% endif %}
+                {% else %} 
+                    <tr><td colspan="5">Please choose an organization and a network.</td></tr>
+                {% endif %}  
+            </table>
+        </div>
+    </div>
+
+    <!--<button name="add_device" class="btn" value="True">Add device</button>-->
+</div>
+
+<div class="modal modal--small hide" id="modal-small">
+    <div class="modal__dialog">
+        <div class="modal__content">
+            <a class="modal__close" onclick="closeModal('modal-small')"><span class="icon-close"></span></a>
+            <div class="modal__header">
+                <div class="modal__title">Claim by serial and/or order number</div>
+            </div>
+            <div class="modal__body">
+            <p class="subtitle">Enter one or more serial/order numbers (one per row). <a>Where can I find these numbers?</a></p>
+            <textarea name="device_serials" id="device-claim-textfield" rows="5"></textarea>
+            </div>
+            <div class="modal__footer">
+                <button class="btn btn--ghost" onclick="closeModal('modal-small'); return false;">Close</button>
+                <button name="claim_button" class="btn btn--primary additional_submit" value="True">Claim</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+{%  endblock %}
+

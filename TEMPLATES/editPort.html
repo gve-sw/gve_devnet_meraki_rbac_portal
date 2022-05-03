@@ -1,0 +1,134 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/editPort" method="POST"> 
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+        <div class="section">
+            <div class="flex-center-vertical">
+                <h1>Edit Port</h1>
+            </div>
+        </div>
+            
+            <div class="section">
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="switch_name" type="text" value="{{selectedPort.switchname}}/{{selectedPort.port.portId}}" disabled>
+                            <label for="input-type-name">Switchport</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="port_name" type="text" value="{{selectedPort.port.name}}">
+                            <label for="input-type-name">Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="port_tags" type="text" value="{{selectedPort.port.tags}}">
+                            <label for="input-type-name">Tags</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_enabled" id="select-type-basic">
+                                <option value="true" {%if selectedPort.port.enabled == True %} selected {% endif %}>enabled</option>
+                                <option value="false" {%if selectedPort.port.enabled == False %} selected {% endif %} >disabled</option>
+                            </select>
+                            <label for="select-type-basic">Port enabled</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_type" id="select-type-basic">
+                                <option value="trunk" {%if selectedPort.port.type %} selected {% endif %}>Trunk</option>
+                                <option value="access" {%if selectedPort.port.type == False %} selected {% endif %}>Access</option>
+                            </select>
+                            <label for="select-type-basic">Type</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="port_vlan" type="text" value="{{selectedPort.port.vlan}}">
+                            <label for="input-type-name">Native VLAN</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="port_allowed_vlans" type="text" value="{{selectedPort.port.allowedVlans}}">
+                            <label for="input-type-name">Native VLAN</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_rstp" id="select-type-basic">
+                                <option value="True" {%if selectedPort.port.rstpEnabled %} selected {% endif %}>Enabled</option>
+                                <option value="False" {%if selectedPort.port.rstpEnabled == False %} selected {% endif %}>Disabled</option>
+                            </select>
+                            <label for="select-type-basic">RSTP</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_stp" id="select-type-basic">
+                                <option value="disabled" {%if selectedPort.port.stpGuard == "diabled" %} selected {% endif %}>Disabled</option>
+                                <option value="root guard" {%if selectedPort.port.stpGuard == "root guard" %} selected {% endif %}>Root Guard</option>
+                                <option value="bpdu guard" {%if selectedPort.port.stpGuard == "bpdu guard" %} selected {% endif %}>BPDU Guard</option>
+                                <option value="loop guard" {%if selectedPort.port.stpGuard == "loop guard" %} selected {% endif %}>Loop Guard</option>
+                            </select>
+                            <label for="select-type-basic">STP guard</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_isolation" id="select-type-basic">
+                                <option value="True" {%if selectedPort.port.isolationEnabled %} selected {% endif %}>Enabled</option>
+                                <option value="False" {%if selectedPort.port.isolationEnabled == False %} selected {% endif %}>Disabled</option>
+                            </select>
+                            <label for="select-type-basic">Port Isolation</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_udld" id="select-type-basic">
+                                <option value="Alert only" {%if selectedPort.port.udld == "Alert only" %} selected {% endif %}>Alert only</option>
+                                <option value="Enforce" {%if selectedPort.port.udld == "Enforce" %} selected {% endif %}>Enforce</option>
+                            </select>
+                            <label for="select-type-basic">Unidirectional link detection (UDLD)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button name="save_port_edit" class="btn additional_submit" value="{{selectedPort.switchserial}}">Save Changes</button>
+            <button name="cancel_port_edit" class="btn btn--ghost additional_submit" value="True">Cancel</button>
+    </div>
+    
+</form>
+{%  endblock %}
+

@@ -1,0 +1,63 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/clients" method="POST"> 
+
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+    <div class="section">
+        <div class="flex-center-vertical">
+            <h1>Clients</h1>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="responsive-table">
+            <table class="table table--lined table--selectable table">
+                <thead>
+                    <tr>
+                        <th class="sortable">Status <span class="sort-indicator icon-dropdown"></span></th>
+                        <th>Description</th>
+                        <th class="hidden-xs-down">Last seen</th>
+                        <th class="hidden-md-down">Usage in MB</th>
+                        <th class="hidden-md-down">OS</th>
+                        <th class="hidden-lg-down">IPv4 address</th>
+                        <th class="hidden-lg-down">Policy</th>
+                    </tr>
+                </thead>
+                
+                {% if selected_elements.network_id %}
+                        {% if network_device_list %}
+                        <tbody>
+                            {% for device in network_device_list %}
+                            <tr>
+                                <td>{{device.status}}</td>
+                                <td>{{device.description}}</td>
+                                <td>{{device.lastSeen}}</td>
+                                <td class="hidden-md-down">Sent: {{device.usage.sent}}; Received: {{device.usage.recv}}</span></td>
+                                <td class="hidden-md-down">{{device.os}}</span></td>
+                                <td class="hidden-lg-down">{{device.ip}}</span></td>
+                                <td class="hidden-lg-down">{{device.groupPolicy8021x}}</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        {% else %}
+                        <tr><td colspan="5">This network has no clients.</td></tr>
+                        {% endif %}
+                {% else %} 
+                    <tr><td colspan="5">Please choose an organization and a network.</td></tr>
+                {% endif %}      
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</form>
+{%  endblock %}
+

@@ -1,0 +1,62 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/switchPort" method="POST"> 
+
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+    <div class="section">
+        <div class="flex-center-vertical">
+            <h1>Switch Ports</h1>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="responsive-table">
+            <table class="table table--lined table--selectable table">
+                <thead>
+                    <tr>
+                        <th class="hidden-xs-down">Switch / Port</th>
+                        <th class="hidden-xs-down">Name</th>
+                        <th class="hidden-md-down">Type</th>
+                        <th class="hidden-md-down">VLAN</th>
+                        <th class="hidden-md-down">Enabled</th>
+                    </tr>
+                </thead>
+                
+                {% if selected_elements.network_id %}
+                        {% if switches %}
+                        <tbody>
+                            {% for switch in switches %}
+                                {% for port in switch['switchports'] %}
+                                <tr>
+                                    <td class="hidden-xs-down"><button name="edit_port" class="btn btn--link additional_submit" style="padding-left:0px; width: 114px;" type="submit" value="{{switch.switchname}}/{{port.portId}}">{{switch.switchname}} / {{port.portId}}</button></td>
+                                    <td name="port_data" value="{{port}}">{{port.name}}</td>
+                                    <td class="hidden-md-down">{{port.type}}</td>
+                                    <td class="hidden-md-down">{{port.vlan}}</td>
+                                    <td class="hidden-md-down">{{port.enabled}}</td>                                    
+                                </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                        {% else %}
+                        <tr><td colspan="5">This network has no switches.</td></tr>
+                        {% endif %}
+                {% else %} 
+                    <tr><td colspan="5">Please choose an organization and a network.</td></tr>
+                {% endif %}      
+            </table>
+        </div>
+       
+
+    </div>
+</div>
+
+</form>
+{%  endblock %}
+

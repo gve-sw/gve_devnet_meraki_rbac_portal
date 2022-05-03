@@ -1,0 +1,172 @@
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/addressingAndVlan" method="POST">
+
+    <!-- Left Rail -->
+    <!-- Menu element-->
+    {% include "menu.html" %}
+
+    <!-- Middle Rail -->
+    {% if vlanDisabledError %}
+        <div class="col-9 col-xl-9 col-md-9" style="margin-top: 20px;">
+            VLANs are not enabled for this network        
+        </div>
+    {% else %}
+    <div class="col-9 col-xl-9 col-md-9">
+        <div class="section">
+            <div class="flex-center-vertical">
+                <h1>Addressing & VLANs</h1>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="display-5">Subnets</h3>
+            <!--VLANS-->
+            <div class="responsive-table">
+                <table class="table table--lined table--selectable table">
+                    <thead>
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th class="hidden-md-down">Subnet</th>
+                            <th class="hidden-md-down">MIX IP</th>
+                            <th class="hidden-md-down">Group Policy</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+
+                    {% if selected_elements.network_id %}
+                    {% if applicance_vlans %}
+                    <tbody>
+                        {% for vlan in applicance_vlans %}
+                        <tr>
+
+                            <td>{{vlan.id}}</td>
+                            <td>{{vlan.name}}</td>
+                            <td class="hidden-md-down">{{vlan.subnet}}</td>
+                            <td class="hidden-md-down">{{vlan.applianceIp}}</span></td>
+                            <td class="hidden-md-down">{{vlan.groupPolicyId}}</span></td>
+                            <td><button name="delete_appliance_subnet" class="btn btn--link additional_submit"
+                                    style="padding-left:0px;" type="submit" value="{{vlan.id}}">Delete</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">This appliance has no vlans.</td>
+                    </tr>
+                    {% endif %}
+                    {% else %}
+                    <tr>
+                        <td colspan="5">Please choose an organization and a network.</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+            </br>
+            <!--<button name="add_vlan" class="btn additional_submit" value="True">Add VLAN</button>-->
+
+
+            </br>
+            </br>
+            <h3 class="display-5">Per-port VLAN Settings</h3>
+            <!--VLANS-->
+            <div class="responsive-table">
+                <table class="table table--lined table--selectable table">
+                    <thead>
+                        <tr>
+
+                            <th>Port</th>
+                            <th>Enable</th>
+                            <th class="hidden-md-down">Type</th>
+                            <th class="hidden-md-down">VLAN</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    {% if selected_elements.network_id %}
+                    {% if applicance_ports %}
+                    <tbody>
+                        {% for port in applicance_ports %}
+                        <tr>
+
+                            <td>{{port.number}}</td>
+                            <td>{{port.enabled}}</td>
+                            <td class="hidden-md-down">{{port.type}}</td>
+                            <td class="hidden-md-down">{% if port.dropUntaggedTraffic %}Drop Untagged Traffic {% else %}
+                                Native: {{port.vlan}} {% endif %}</span></td>
+                            <td><button name="edit_appliance_port" class="btn btn--link additional_submit"
+                                    style="padding-left:0px;" type="submit" value="{{port.number}}">Edit</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">This appliance has no ports.</td>
+                    </tr>
+                    {% endif %}
+                    {% else %}
+                    <tr>
+                        <td colspan="5">Please choose an organization and a network.</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+
+            </br>
+            </br>
+            <h3 class="display-5">Static Route</h3>
+            <!--VLANS-->
+            <div class="responsive-table">
+                <table class="table table--lined table--selectable table">
+                    <thead>
+                        <tr>
+
+                            <th>Enabled</th>
+                            <th>Name</th>
+                            <th class="hidden-md-down">Subnet</th>
+                            <th class="hidden-md-down">Next Hop</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    {% if selected_elements.network_id %}
+                    {% if applicance_static_routes %}
+                    <tbody>
+                        {% for route in applicance_static_routes %}
+                        <tr>
+
+                            <td>{{route.enabled}}</td>
+                            <td>{{route.name}}</td>
+                            <td class="hidden-md-down">{{route.subnet}}</td>
+                            <td class="hidden-md-down">{{route.gatewayIp}}</span></td>
+                            <td><button name="delete_appliance_route" class="btn btn--link additional_submit"
+                                    style="padding-left:0px;" type="submit" value="{{route.id}}">Delete</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">This appliance has static routes.</td>
+                    </tr>
+                    {% endif %}
+                    {% else %}
+                    <tr>
+                        <td colspan="5">Please choose an organization and a network.</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+            </br>
+            <button name="add_route" class="btn additional_submit" value="True">Add Static Route</button>
+
+        </div>
+        
+    </div>
+    {% endif %}
+
+</form>
+{% endblock %}

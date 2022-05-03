@@ -1,0 +1,62 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/groupPolicies" method="POST"> 
+
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+    <div class="section">
+        <div class="flex-center-vertical">
+            <h1>Group Policies</h1>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="responsive-table">
+            <table class="table table--lined table--selectable table">
+                <thead>
+                    <tr>
+                        <th class="sortable">Name</th>
+                        <th class="hidden-xs-down">Bandwidth limit (MB)</th>
+                        <th class="hidden-md-down">VLAN</th>
+                        <th class="hidden-md-down">Splash</th>
+                        <th class="hidden-lg-down">Bonjour</th>
+                        <th class="hidden-lg-down">Actions</th>
+                    </tr>
+                </thead>
+                
+                {% if selected_elements.network_id %}
+                        {% if groupPolicies %}
+                        <tbody>
+                            {% for policy in groupPolicies %}
+                            <tr>
+                                <td>{{policy.name}}</td>
+                                <td class="hidden-md-down">{{policy.bandwidth.bandwidthLimits.limitUp}} up / {{policy.bandwidth.bandwidthLimits.limitDown}} down</td>
+                                <td class="hidden-md-down">{{policy.vlanTagging.vlanId}}</span></td>
+                                <td class="hidden-md-down">{{policy.splashAuthSettings}}</span></td>
+                                <td class="hidden-lg-down">{{policy.bonjourForwarding.settings}}</span></td>
+                                <td class="hidden-lg-down"><button name="delete_policy" class="btn btn--link additional_submit" style="padding-left:0px;" type="submit" value="{{policy.groupPolicyId}}">Delete</button></span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        {% else %}
+                        <tr><td colspan="5">This network has no policies.</td></tr>
+                        {% endif %}
+                {% else %} 
+                    <tr><td colspan="5">Please choose an organization and a network.</td></tr>
+                {% endif %}      
+            </table>
+        </div>
+
+    </div>
+    <button name="add_new_policy" class="btn btn--primary additional_submit" type="submit" value="True">Add a group policy</button>
+</div>
+
+</form>
+{%  endblock %}
+

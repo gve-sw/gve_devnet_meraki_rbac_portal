@@ -1,0 +1,75 @@
+[
+    {
+        "role": "admin",
+        "organizations": ["", ""],
+        "permissions": {
+            "network_policies": true,
+            "network_traffic_analysis": true,
+            "network_clients": true, 
+            "network_add_device": true,
+            "switch_routing_DHCP": true,
+            "switch_port_config": true,
+            "switch_ipv4_acl": true,
+            "security_vlan":true,
+            "security_firewall_rules":true,
+            "security_site_to_site_vpn":true,
+            "wireless_ap":true,
+            "wireless_ssid":true,
+            "wireless_access_control":true
+        }
+    },{
+        "role": "lan_admin",
+        "organizations": [""],
+        "permissions": {
+            "network_policies": false,
+            "network_traffic_analysis": true,
+            "network_clients": true, 
+            "network_add_device": true,
+            "switch_routing_DHCP": true,
+            "switch_port_config": true,
+            "switch_ipv4_acl": true,
+            "security_vlan":false,
+            "security_firewall_rules":true,
+            "security_site_to_site_vpn":false,
+            "wireless_ap":true,
+            "wireless_ssid":false,
+            "wireless_access_control":false
+        }
+    },{
+        "role": "wifi_partner_admin",
+        "organizations": [""],
+        "permissions": {
+            "network_policies": false,
+            "network_traffic_analysis": false,
+            "network_clients": false, 
+            "network_add_device": false,
+            "switch_routing_DHCP": false,
+            "switch_port_config": false,
+            "switch_ipv4_acl": false,
+            "security_vlan":false,
+            "security_firewall_rules":false,
+            "security_site_to_site_vpn":false,
+            "wireless_ap":true,
+            "wireless_ssid":true,
+            "wireless_access_control":true
+        }
+    },{
+        "role": "security_admin",
+        "organizations": [""],
+        "permissions": {
+            "network_policies": true,
+            "network_traffic_analysis": true,
+            "network_clients": true, 
+            "network_add_device": false,
+            "switch_routing_DHCP": false,
+            "switch_port_config": false,
+            "switch_ipv4_acl": true,
+            "security_vlan":true,
+            "security_firewall_rules":true,
+            "security_site_to_site_vpn":true,
+            "wireless_ap":false,
+            "wireless_ssid":false,
+            "wireless_access_control":false
+        }
+    }
+]

@@ -1,0 +1,69 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/editAppliancePort" method="POST"> 
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+        <div class="section">
+            <div class="flex-center-vertical">
+                <h1>Edit Appliance Port</h1>
+            </div>
+        </div>
+            
+            <div class="section">
+                
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_enabled" id="select-type-basic">
+                                <option value="true" {%if selected_appliance_port.enabled == True %} selected {% endif %}>enabled</option>
+                                <option value="false" {%if selected_appliance_port.enabled == False %} selected {% endif %} >disabled</option>
+                            </select>
+                            <label for="select-type-basic">Port enabled</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_type" id="select-type-basic">
+                                <option value="trunk" {%if selected_appliance_port.type == "trunk" %} selected {% endif %}>Trunk</option>
+                                <option value="access" {%if selected_appliance_port.type == "access" %} selected {% endif %}>Access</option>
+                            </select>
+                            <label for="select-type-basic">Type</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text select">
+                            <select name="port_native_vlan" id="select-type-basic">
+                                <option value="true" {%if selected_appliance_port.dropUntaggedTraffic %} selected {% endif %}>Drop Untagged Traffic</option>
+                                <option value="1" {%if selected_appliance_port.dropUntaggedTraffic == False %} selected {% endif %}>VLAN 1 (Default)</option>
+                            </select>
+                            <label for="select-type-basic">Native VLAN</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group base-margin-bottom">
+                        <div class="form-group__text">
+                            <input id="input-type-name" name="port_vlan" type="text" value="{{selected_appliance_port.allowedVlans}}">
+                            <label for="input-type-name">Allowed VLANs</label> <!-- all or number with comma-->
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <button name="save_app_port_edit" class="btn additional_submit" value="{{selected_appliance_port.number}}">Save Changes</button>
+            <button name="cancel_app_port_edit" class="btn btn--ghost additional_submit" value="True">Cancel</button>
+    </div>
+    
+</form>
+{%  endblock %}
+

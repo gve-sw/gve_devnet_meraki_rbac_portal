@@ -1,0 +1,22 @@
+[
+{
+    "name":"Jason",
+    "pw":"1234", 
+    "role": "admin"
+},
+{
+    "name":"Tyler",
+    "pw":"1234",  
+    "role": "lan_admin"
+},
+{
+    "name":"Michael",
+    "pw":"1234",  
+    "role": "wifi_partner_admin"
+},
+{
+    "name":"Juan",
+    "pw":"1234",  
+    "role": "security_admin"
+}
+]

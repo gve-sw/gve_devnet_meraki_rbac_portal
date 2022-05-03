@@ -1,0 +1,57 @@
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<form action="/accessPoints" method="POST"> 
+
+    <!-- Left Rail -->
+    <!-- Menu element-->   
+        {% include "menu.html" %}   
+  
+    <!-- Middle Rail -->
+    <div class="col-9 col-xl-9 col-md-9">
+    <div class="section">
+        <div class="flex-center-vertical">
+            <h1>Access Points</h1>
+        </div>
+    </div>
+    <div class="section">
+        <div class="responsive-table">
+            <table class="table table--lined table--selectable table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th class="hidden-xs-down">MAC address</th>
+                        <th class="hidden-md-down">IP</th>
+                        <th class="hidden-md-down">Model</th>
+                    </tr>
+                </thead>
+                
+                {% if selected_elements.network_id %}
+                    {% if networkDevicesAP %}
+                    <tbody>
+                        {% for device in networkDevicesAP %}
+                        <tr>
+                            <td style="width: 150px;">{{device.name}}</td>
+                            <td class="hidden-xs-down">{{device.mac}}</td>
+                            <td class="hidden-md-down">{{device.lanIp}}</td>
+                            <td class="hidden-md-down">{{device.model}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tr><td colspan="5">This organization has no devices.</td></tr>
+                    {% endif %}
+                {% else %} 
+                    <tr><td colspan="5">Please choose an organization and a network.</td></tr>
+                {% endif %}  
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+</form>
+{%  endblock %}
+
